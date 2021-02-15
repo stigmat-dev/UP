@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8');
       <input class="form-control" name="password" type="password" placeholder="Пароль" />
       <p></p>
       <button type="submit" name="auth_submit" class="form-control btn btn-primary enterBtn">Войти</button>
-      
+      <p></p>
       <?php
       if (@$_SESSION['message']) {
         echo '<p class="msg">' . @$_SESSION['message'] . '</p>';

@@ -6,7 +6,7 @@ session_start();
 
 $full_name = @$_POST['full_name'];
 $dob = @$_POST['dob'];
-$dob = date("d.m.Y", strtotime($dob));
+//$dob = date("d.m.Y", strtotime($dob));
 $adress = @$_POST['adress'];
 $diag = @$_POST['diag'];
 $work = @$_POST['work'];
@@ -96,12 +96,9 @@ if (isset($_GET['exit_submit'])) {
     header('Location: ../');
 }
 
-function calculate_age($dob) {
-    $birthday_timestamp = strtotime($dob);
-    $age = date('Y') - date('Y', $birthday_timestamp);
-    if (date('md', $birthday_timestamp) > date('md')) {
-      $age--;
-    }
-    return $age;
-  }
-
+$birthDate = '03.02.2000';
+$birthDate = explode(".", $birthDate);
+$age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+    ? ((date("Y") - $birthDate[2]) - 1)
+    : (date("Y") - $birthDate[2]));
+//echo "Возраст: " . $age;

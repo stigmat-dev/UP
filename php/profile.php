@@ -58,7 +58,7 @@ include 'functions_user.php';
               <tr>
                 <td><?= $value['id'] ?></td>
                 <td><?= $value['full_name'] ?></td>
-                <td><?= $value['dob'] ?> (<?= calculate_age($dob); ?>)</td>
+                <td><?= $value['dob'] ?> (Возраст: <?= $age ?>)</td>
                 <td><?= $value['adress'] ?></td>
                 <td><?= $value['diag'] ?></td>
                 <td><?= $value['work'] ?></td>
