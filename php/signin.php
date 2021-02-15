@@ -7,9 +7,6 @@ include 'connect.php';
 
 $login = $_POST['login'];
 $password = $_POST['password'];
-$ban = $_SESSION['ban'];
-
-//$password = md5($password);
 
 $check_user = $connect->query("SELECT * FROM users WHERE login='$login' AND password='$password';");
 $check_admin = $connect->query("SELECT * FROM users WHERE login='admin' AND password='111';");

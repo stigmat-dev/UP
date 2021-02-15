@@ -6,6 +6,7 @@ session_start();
 
 $full_name = @$_POST['full_name'];
 $dob = @$_POST['dob'];
+$dob = date("d.m.Y", strtotime($dob));
 $adress = @$_POST['adress'];
 $diag = @$_POST['diag'];
 $work = @$_POST['work'];
@@ -94,3 +95,13 @@ if (isset($_GET['load_submit'])) {
 if (isset($_GET['exit_submit'])) {
     header('Location: ../');
 }
+
+function calculate_age($dob) {
+    $birthday_timestamp = strtotime($dob);
+    $age = date('Y') - date('Y', $birthday_timestamp);
+    if (date('md', $birthday_timestamp) > date('md')) {
+      $age--;
+    }
+    return $age;
+  }
+

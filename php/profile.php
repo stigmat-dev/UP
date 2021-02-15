@@ -58,7 +58,7 @@ include 'functions_user.php';
               <tr>
                 <td><?= $value['id'] ?></td>
                 <td><?= $value['full_name'] ?></td>
-                <td><?= $value['dob'] ?></td>
+                <td><?= $value['dob'] ?> (<?= calculate_age($dob); ?>)</td>
                 <td><?= $value['adress'] ?></td>
                 <td><?= $value['diag'] ?></td>
                 <td><?= $value['work'] ?></td>
@@ -90,7 +90,7 @@ include 'functions_user.php';
               <input type="text" class="form-control" name="full_name" value="" placeholder="ФИО">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="dob" value="" placeholder="Дата рождения">
+              <input type="date" class="form-control mydate" name="dob" value="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="form-group">
               <input type="text" class="form-control" name="adress" value="" placeholder="Адрес">
