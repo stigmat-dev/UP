@@ -45,29 +45,26 @@ include 'functions_user.php';
           <thead class="thead-dark">
             <tr>
               <th>№</th>
-              <th>Дата</th>
-              <th>Наименование</th>
-              <th>Примечание</th>
-              <th>Подразделение</th>
-              <th>Исполнитель</th>
-              <th>Статус</th>
-              <th>Действие</th>
+              <th>ФИО</th>
+              <th>Дата рождения</th>
+              <th>Адрес</th>
+              <th>Диагноз</th>
+              <th>Трудоустройство</th>
+              <th>Дата поступления</th>
+              <th>Дата выписки</th>
+              <th>Отделение</th>
             </tr>
             <?php foreach ($result as $value) { ?>
               <tr>
                 <td><?= $value['id'] ?></td>
-                <td><?= $value['date'] ?></td>
-                <td><?= $value['name'] ?></td>
-                <td><a href="?note=<?= $value['id'] ?>" class="myLink" <?php if (empty($value['note'])) {
-                                                                          echo 'style="display: none;"';
-                                                                        } ?> id="noteLink" data-toggle="modal" data-placement="top" data-target="#noteModal<?= $value['id'] ?>">Открыть</a></td>
+                <td><?= $value['full_name'] ?></td>
+                <td><?= $value['dob'] ?></td>
+                <td><?= $value['adress'] ?></td>
+                <td><?= $value['diag'] ?></td>
+                <td><?= $value['work'] ?></td>
+                <td><?= $value['date_enter'] ?></td>
+                <td><?= $value['date_exit'] ?></td>
                 <td><?= $value['unit'] ?></td>
-                <td><?= $value['executor'] ?></td>
-                <td><?= $value['status'] ?></td>
-                <td>
-                  <a href="?edit=<?= $value['id'] ?>" title="Редактировать запись" class="btn btn-primary btn-sm myBtn" data-toggle="modal" data-placement="top" data-target="#editModal<?= $value['id'] ?>"><i class="far fa-edit"></i></a>
-                  <?php require 'modal_user.php'; ?>
-                </td>
               </tr>
             <?php } ?>
           </thead>
@@ -90,51 +87,44 @@ include 'functions_user.php';
         <div class="modal-body">
           <form action="" method="post">
             <div class="form-group">
-              <input type="date" class="form-control mydate" name="date" value="<?php echo date('Y-m-d'); ?>">
+              <input type="text" class="form-control" name="full_name" value="" placeholder="ФИО">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="name" value="" placeholder="Наименование">
+              <input type="text" class="form-control" name="dob" value="" placeholder="Дата рождения">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="adress" value="" placeholder="Адрес">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="diag" value="" placeholder="Диагноз">
+            </div>
+            <div class="form-group">
+              <select class="form-control" name="work">
+                <option value="" selected>Выберите статус</option>
+                <option value="Работает">Работает</option>
+                <option value="Не работает">Не работает</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Дата поступления</label>
+              <input type="date" class="form-control mydate" name="date_enter" value="<?php echo date('Y-m-d'); ?>">
+            </div>
+            <div class="form-group">
+              <label>Дата выписки</label>
+              <input type="date" class="form-control mydate" name="date_exit" value="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="form-group">
               <select class="form-control" name="unit">
-                <option value="" selected>Выберите подразделение</option>
-                <option value="Главный врач">Главный врач</option>
-                <option value="Приемная">Приемная</option>
-                <option value="Зам. по медицинской части">Зам. по медицинской части</option>
-                <option value="Зам. по реабилитации">Зам. по реабилитации</option>
-                <option value="Зам. по экономике">Зам. по экономике</option>
-                <option value="Зам. по АХП">Зам. по АХП</option>
-                <option value="Главный бухгалтер">Главный бухгалтер</option>
-                <option value="Орг. метод. отдел">Орг. метод. отдел</option>
-                <option value="Экономический отдел">Экономический отдел</option>
-                <option value="Бухгалтерия">Бухгалтерия</option>
-                <option value="Расчетный отдел">Расчетный отдел</option>
-                <option value="Отдел кадров">Отдел кадров</option>
-                <option value="Юрист">Юрист</option>
-                <option value="Стат. отдел">Стат. отдел</option>
+                <option value="" selected>Выберите отделение</option>
                 <option value="Нейрохирургия 1">Нейрохирургия 1</option>
                 <option value="Нейрохирургия 2">Нейрохирургия 2</option>
-                <option value="Травматология 1">Травматология 1</option>
-                <option value="Травматология 2">Травматология 2</option>
+                <option value="Травматология 1">Травматология ЗП</option>
+                <option value="Травматология 2">Травматология ОДА</option>
                 <option value="Неврология">Неврология</option>
-                <option value="Интенсивная терапия">Интенсивная терапия</option>
-                <option value="ФТО">ФТО</option>
-                <option value="Госпиталь">Госпиталь</option>
-                <option value="Лаборатория">Лаборатория</option>
-                <option value="Санпропускник">Санпропускник</option>
-                <option value="Аптека">Аптека</option>
-                <option value="АХП">АХП</option>
+
               </select>
             </div>
-            <div class="form-group">
-              <select class="form-control" name="status">
-                <option value="" selected>Выберите статус</option>
-                <option value="В работе">В работе</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <textarea style="height: 100px;" class="form-control" name="note" placeholder="Примечание"></textarea>
-            </div>
+
         </div>
         <div class="modal-footer">
           <button type="submit" name="add_submit" class="btn btn-primary">Добавить</button>

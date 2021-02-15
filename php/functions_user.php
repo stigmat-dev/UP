@@ -4,13 +4,17 @@ include 'connect.php';
 
 session_start();
 
-$date = @$_POST['date'];
-$date = date("d.m.Y", strtotime($date));
-$name = @$_POST['name'];
-$note = @$_POST['note'];
+$full_name = @$_POST['full_name'];
+$dob = @$_POST['dob'];
+$adress = @$_POST['adress'];
+$diag = @$_POST['diag'];
+$work = @$_POST['work'];
+$date_enter = @$_POST['date_enter'];
+$date_enter = date("d.m.Y", strtotime($date_enter));
+$date_exit = @$_POST['date_exit'];
+$date_exit = date("d.m.Y", strtotime($date_exit));
 $unit = @$_POST['unit'];
-$executor = @$_POST['executor'];
-$status = @$_POST['status'];
+
 
 $search = @$_GET['search'];
 $search = trim(@$search);
@@ -39,9 +43,9 @@ $main = $sql->fetch(PDO::FETCH_ASSOC);
 
 
 if (isset($_POST['add_submit'])) {
-    $sql = "INSERT INTO patients(`date`, `name`, `note`, `unit`, `executor`, `status`, `id_user`) VALUES(?,?,?,?,?,?,?);";
+    $sql = "INSERT INTO patients(`full_name`, `dob`, `adress`, `diag`, `work`, `date_enter`, `date_exit`, `unit`) VALUES(?,?,?,?,?,?,?,?);";
     $query = $connect->prepare($sql);
-    $query->execute([$date, $name, $note, $unit, $executor, $status, $id]);
+    $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $date_exit, $unit]);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
@@ -81,7 +85,7 @@ if (isset($_GET['find_submit'])) {
 }
 
 if (isset($_GET['load_submit'])) {
-    $sql = $connect->prepare("SELECT * FROM patients WHERE id_user = '$id' ORDER BY id DESC;");
+    $sql = $connect->prepare("SELECT * FROM patients ORDER BY id DESC;");
     $sql->execute();
     $result = $sql->fetchAll();
     header('Location: ./profile.php');
