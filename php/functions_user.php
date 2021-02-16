@@ -4,9 +4,14 @@ include 'connect.php';
 
 session_start();
 
+
+
+
+
 $full_name = @$_POST['full_name'];
 $dob = @$_POST['dob'];
-//$dob = date("d.m.Y", strtotime($dob));
+$dob = date("d.m.Y", strtotime($dob));
+
 $adress = @$_POST['adress'];
 $diag = @$_POST['diag'];
 $work = @$_POST['work'];
@@ -34,7 +39,6 @@ $edit_unit = @$_POST['edit_unit'];
 $edit_executor = @$_POST['edit_executor'];
 $edit_status = @$_POST['edit_status'];
 $get_id = @$_GET['id'];
-$id = $_SESSION['user_id'];
 
 
 $sql = $connect->prepare("SELECT * FROM patients ORDER BY id DESC;");
@@ -47,6 +51,17 @@ if (isset($_POST['add_submit'])) {
     $sql = "INSERT INTO patients(`full_name`, `dob`, `adress`, `diag`, `work`, `date_enter`, `date_exit`, `unit`) VALUES(?,?,?,?,?,?,?,?);";
     $query = $connect->prepare($sql);
     $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $date_exit, $unit]);
+
+    $sql2 = $connect->prepare("SELECT dob FROM patients;");
+    $sql2->execute();
+    $my_dob = $sql2->fetch(PDO::FETCH_ASSOC);
+    $my_dob = $my_dob['dob'];
+
+    $tz  = new DateTimeZone('Europe/Moscow');
+    $age = DateTime::createFromFormat('d.m.Y', $my_dob, $tz)
+     ->diff(new DateTime('now', $tz))
+     ->y;
+
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
@@ -96,9 +111,8 @@ if (isset($_GET['exit_submit'])) {
     header('Location: ../');
 }
 
-$birthDate = '03.02.2000';
-$birthDate = explode(".", $birthDate);
-$age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
-    ? ((date("Y") - $birthDate[2]) - 1)
-    : (date("Y") - $birthDate[2]));
-//echo "Возраст: " . $age;
+
+
+
+
+

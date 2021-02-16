@@ -40,7 +40,7 @@ include 'functions_user.php';
             </div>
           </form>
         </nav>
-
+        
         <table class="table shadow">
           <thead class="thead-dark">
             <tr>
@@ -58,7 +58,7 @@ include 'functions_user.php';
               <tr>
                 <td><?= $value['id'] ?></td>
                 <td><?= $value['full_name'] ?></td>
-                <td><?= $value['dob'] ?> (Возраст: <?= $age ?>)</td>
+                <td><?= $value['dob'] ?> ( Возраст: <?= $age; ?> )</td>
                 <td><?= $value['adress'] ?></td>
                 <td><?= $value['diag'] ?></td>
                 <td><?= $value['work'] ?></td>
@@ -90,7 +90,7 @@ include 'functions_user.php';
               <input type="text" class="form-control" name="full_name" value="" placeholder="ФИО">
             </div>
             <div class="form-group">
-              <input type="date" class="form-control mydate" name="dob" value="<?php echo date('Y-m-d'); ?>">
+              <input type="text" class="form-control mydate" name="dob" value="" placeholder="Дата рождения">
             </div>
             <div class="form-group">
               <input type="text" class="form-control" name="adress" value="" placeholder="Адрес">
