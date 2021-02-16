@@ -40,7 +40,7 @@ include 'functions_user.php';
             </div>
           </form>
         </nav>
-        
+
         <table class="table shadow">
           <thead class="thead-dark">
             <tr>
@@ -58,7 +58,14 @@ include 'functions_user.php';
               <tr>
                 <td><?= $value['id'] ?></td>
                 <td><?= $value['full_name'] ?></td>
-                <td><?= $value['dob'] ?> ( Возраст: <?= $age; ?> )</td>
+                <td><?= $value['dob'] ?> 
+                  (<?php
+                  $age = DateTime::createFromFormat('d.m.Y', $value['dob'])
+                    ->diff(new DateTime('now'))
+                    ->y;
+                
+                  print YearTextArg($age);
+                  ?>)</td>
                 <td><?= $value['adress'] ?></td>
                 <td><?= $value['diag'] ?></td>
                 <td><?= $value['work'] ?></td>

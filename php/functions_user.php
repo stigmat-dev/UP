@@ -41,6 +41,8 @@ $edit_status = @$_POST['edit_status'];
 $get_id = @$_GET['id'];
 
 
+
+
 $sql = $connect->prepare("SELECT * FROM patients ORDER BY id DESC;");
 $sql->execute();
 $result = $sql->fetchAll();
@@ -52,21 +54,9 @@ if (isset($_POST['add_submit'])) {
     $query = $connect->prepare($sql);
     $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $date_exit, $unit]);
 
-    $sql2 = $connect->prepare("SELECT dob FROM patients;");
-    $sql2->execute();
-    $my_dob = $sql2->fetch(PDO::FETCH_ASSOC);
-    $my_dob = $my_dob['dob'];
-
-    $tz  = new DateTimeZone('Europe/Moscow');
-    $age = DateTime::createFromFormat('d.m.Y', $my_dob, $tz)
-     ->diff(new DateTime('now', $tz))
-     ->y;
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
-
-
-
 
 if (isset($_POST['edit_submit'])) {
     $sql = "UPDATE patients SET  name=?, note=? WHERE id=?;";
@@ -111,8 +101,9 @@ if (isset($_GET['exit_submit'])) {
     header('Location: ../');
 }
 
-
-
-
-
-
+function YearTextArg($year)
+{
+    $m = substr($year, -1, 1);
+    $l = substr($year, -2, 2);
+    return $year . ' ' . ((($m == 1) && ($l != 11)) ? 'год' : ((($m == 2) && ($l != 12) || ($m == 3) && ($l != 13) || ($m == 4) && ($l != 14)) ? 'года' : 'лет'));
+}
