@@ -15,7 +15,7 @@ include 'functions_user.php';
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css">
-  <title>Кабинет | <?= $_SESSION['name']; ?></title>
+  <title>АСУП | <?= $_SESSION['name']; ?></title>
 </head>
 
 <body>
@@ -28,14 +28,14 @@ include 'functions_user.php';
           <form action="" method="GET">
             <div class="form-group ">
               <button name="search_submit" type="submit" class="btn btn-primary noBtn">Найти</button>
-              <input type="search" class="form-control search" name="search" value="" placeholder="&#128269; Поиск">
+
+              <input type="search" class="form-control search" name="search" value="" placeholder="Поиск...">
+
               <button name="load_submit" type="submit" class="btn btn-primary loadBtn myBtn" title="Обновить базу"><i class="fas fa-sync-alt"></i></button>
               <button name="exit_submit" class="btn btn-primary expBtn myBtn" type="submit" title="Выход"><i class="fas fa-sign-out-alt"></i></button>
-              <button name="find_submit" type="submit" class="btn btn-primary ml-auto searchBtn myBtn" title="Найти по датам"><i class="fas fa-search"></i></button>
-              <input name="end_date" class="dates" type="date" title="Конечная дата" value="<?php echo date('Y-m-d'); ?>">
-              <input name="start_date" class="dates" type="date" title="Начальная дата" value="<?php echo date('Y-m-d'); ?>">
               <label class="greeting">
-                <h5>Добрый день, <?= $_SESSION['name']; ?>!</h5>
+                <h5>Добрый день, <span style="font-weight:bold"><?= $_SESSION['name']; ?></span>!
+                  Сегодня: <span style="font-weight:bold"><?= date('d.m.Y') ?></span>. Хорошего дня!</h5>
               </label>
             </div>
           </form>
@@ -53,25 +53,32 @@ include 'functions_user.php';
               <th>Дата поступления</th>
               <th>Дата выписки</th>
               <th>Отделение</th>
+              <th>Действие</th>
             </tr>
             <?php foreach ($result as $value) { ?>
               <tr>
-                <td><?= $value['id'] ?></td>
+                <td class="td-center"><?= $value['id'] ?></td>
                 <td><?= $value['full_name'] ?></td>
-                <td><?= $value['dob'] ?> 
+                <td class="td-center"><?= $value['dob'] ?>
                   (<?php
-                  $age = DateTime::createFromFormat('d.m.Y', $value['dob'])
-                    ->diff(new DateTime('now'))
-                    ->y;
-                
-                  print YearTextArg($age);
-                  ?>)</td>
-                <td><?= $value['adress'] ?></td>
-                <td><?= $value['diag'] ?></td>
-                <td><?= $value['work'] ?></td>
-                <td><?= $value['date_enter'] ?></td>
-                <td><?= $value['date_exit'] ?></td>
-                <td><?= $value['unit'] ?></td>
+                    $age = DateTime::createFromFormat('d.m.Y', $value['dob'])
+                      ->diff(new DateTime('now'))
+                      ->y;
+
+                    print YearTextArg($age);
+                    ?>)</td>
+                <td class="td-center"><?= $value['adress'] ?></td>
+                <td class="td-center"><a href="?note=<?= $value['id'] ?>" class="myLink" <?php if (empty($value['diag'])) {
+                                                                                            echo 'style="display: none;"';
+                                                                                          } ?> id="noteLink" data-toggle="modal" data-placement="top" data-target="#diagModal<?= $value['id'] ?>">Открыть</a></td>
+                <td class="td-center"><?= $value['work'] ?></td>
+                <td class="td-center"><?= $value['date_enter'] ?></td>
+                <td class="td-center"><?= $value['date_exit'] ?></td>
+                <td class="td-center"><?= $value['unit'] ?></td>
+                <td class="td-center">
+                  <a href="?edit=<?= $value['id'] ?>" title="Редактировать запись" class="btn btn-primary btn-sm myBtn" data-toggle="modal" data-placement="top" data-target="#editModal<?= $value['id'] ?>"><i class="far fa-edit"></i></a>
+                  <?php require 'modal_user.php'; ?>
+                </td>
               </tr>
             <?php } ?>
           </thead>
@@ -93,44 +100,56 @@ include 'functions_user.php';
         </div>
         <div class="modal-body">
           <form action="" method="post">
+
+
             <div class="form-group">
               <input type="text" class="form-control" name="full_name" value="" placeholder="ФИО">
             </div>
+
+
             <div class="form-group">
-              <input type="text" class="form-control mydate" name="dob" value="" placeholder="Дата рождения">
+              <input type="text" class="form-control mydate" name="dob" value="" placeholder="Дата рождения в формате ДД.ММ.ГГГГ">
             </div>
+
+
             <div class="form-group">
               <input type="text" class="form-control" name="adress" value="" placeholder="Адрес">
             </div>
+
+
             <div class="form-group">
-              <input type="text" class="form-control" name="diag" value="" placeholder="Диагноз">
+              <textarea style="height: 100px;" class="form-control" name="diag" placeholder="Диагноз"></textarea>
             </div>
+
+
             <div class="form-group">
               <select class="form-control" name="work">
-                <option value="" selected>Выберите статус</option>
+                <option style="background: grey; color: white;" value="" selected>Трудоустройство</option>
                 <option value="Работает">Работает</option>
                 <option value="Не работает">Не работает</option>
+                <option value="Пенсия">Пенсия</option>
               </select>
             </div>
+
+
             <div class="form-group">
               <label>Дата поступления</label>
-              <input type="date" class="form-control mydate" name="date_enter" value="<?php echo date('Y-m-d'); ?>">
+              <input type="date" class="form-control" name="date_enter" value="<?php echo date('Y-m-d'); ?>">
             </div>
-            <div class="form-group">
-              <label>Дата выписки</label>
-              <input type="date" class="form-control mydate" name="date_exit" value="<?php echo date('Y-m-d'); ?>">
-            </div>
+
+
             <div class="form-group">
               <select class="form-control" name="unit">
                 <option value="" selected>Выберите отделение</option>
                 <option value="Нейрохирургия 1">Нейрохирургия 1</option>
                 <option value="Нейрохирургия 2">Нейрохирургия 2</option>
-                <option value="Травматология 1">Травматология ЗП</option>
-                <option value="Травматология 2">Травматология ОДА</option>
+                <option value="Травматология ЗП">Травматология ЗП</option>
+                <option value="Травматология ОДА">Травматология ОДА</option>
                 <option value="Неврология">Неврология</option>
 
               </select>
             </div>
+
 
         </div>
         <div class="modal-footer">

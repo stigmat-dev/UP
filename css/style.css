@@ -10,6 +10,14 @@ table {
   background-color: white;
 }
 
+th {
+  text-align: center;
+}
+
+.td-center {
+  text-align: center;
+}
+
 .myBtn {
   background-color: #4682b4;
   border-color: #4682b4;
@@ -46,9 +54,9 @@ table {
 
 .greeting {
   position: relative;
-  top: 8px;
+  top: 5px;
   float: left;
-  margin-left: 30px;
+  margin-left: 450px;
 }
 
 .addBtn {
@@ -93,4 +101,31 @@ th {
 
 .myLink:hover {
   text-decoration: none;
+}
+
+@media (min-width: 1200px) {
+  .greeting {
+    position: relative;
+    top: 5px;
+    float: left;
+    margin-left: 50px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .greeting {
+    position: relative;
+    top: 5px;
+    float: left;
+    margin-left: 250px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .greeting {
+    position: relative;
+    top: 5px;
+    float: left;
+    margin-left: 450px;
+  }
 }
