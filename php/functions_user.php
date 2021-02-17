@@ -81,6 +81,13 @@ if (isset($_GET['load_submit'])) {
     header('Location: ./profile.php');
 }
 
+if (isset($_GET['load2_submit'])) {
+    $sql = $connect->prepare("SELECT * FROM patients ORDER BY id DESC;");
+    $sql->execute();
+    $result = $sql->fetchAll();
+    header('Location: ./profile_doctor.php');
+}
+
 
 if (isset($_GET['exit_submit'])) {
     header('Location: ../');

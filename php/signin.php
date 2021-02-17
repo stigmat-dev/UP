@@ -23,10 +23,16 @@ if ($login === '') {
 } elseif ($count === 0) {
     $_SESSION['message'] = 'Не верный логин или пароль!';
     header('Location: ../');
+} elseif ($login === 'sp' && $password === $password) {
+    $_SESSION['name'] = $user['name'];
+    header('Location: ./profile.php');
+} elseif (
+    $login === 'nh1' && $password === $password || $login === 'nh2' && $password === $password || $login === 'zp' && $password === $password
+    || $login === 'oda' && $password === $password || $login === 'no' && $password === $password)
+{
+    $_SESSION['name'] = $user['name'];
+    header('Location: ./profile_doctor.php');
 } elseif ($login === 'admin' && $password === $password) {
     $_SESSION['name'] = $user['name'];
     header('Location: ./base.php');
-} else {
-    $_SESSION['name'] = $user['name'];
-    header('Location: ./profile.php');
 }
