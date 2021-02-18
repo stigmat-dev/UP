@@ -16,9 +16,28 @@ include 'functions_user.php';
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css">
   <title>АСУП | <?= $_SESSION['name']; ?></title>
+  <script type="text/javascript">
+    function startTime() {
+      var tm = new Date();
+      var h = tm.getHours();
+      var m = tm.getMinutes();
+      var s = tm.getSeconds();
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+      t = setTimeout('startTime()', 500);
+    }
+
+    function checkTime(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+  </script>
 </head>
 
-<body>
+<body onload="startTime()">
 
   <div class="container-fluid">
 
@@ -54,13 +73,8 @@ include 'functions_user.php';
                     <h5>Добрый день, <span style="font-weight:bold"><?= $_SESSION['name']; ?></span>!
                       Сегодня: <span style="font-weight:bold">
                         <script>
-                          var today = new Date();
-                          var dd = String(today.getDate()).padStart(2, '0');
-                          var mm = String(today.getMonth() + 1).padStart(2, '0');
-                          var yyyy = today.getFullYear();
-
-                          today = dd + '.' + mm + '.' + yyyy + '.';
-                          document.write(today);
+                          var ld = new Date();
+                          document.write(ld.toLocaleDateString() + '.');
                         </script>
                       </span> Хорошего дня!</h5>
                   </label>
