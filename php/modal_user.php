@@ -65,6 +65,7 @@
 
                     <div class="modal-footer">
                         <button type="submit" name="edit_submit" class="btn btn-primary">Обновить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     </div>
                 </form>
             </div>
