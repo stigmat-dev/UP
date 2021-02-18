@@ -50,7 +50,17 @@ include 'functions.php';
                                     <button name="exit_submit" class="btn btn-primary expBtn myBtn" type="submit" title="Выход"><i class="fas fa-sign-out-alt"></i></button>
                                     <label class="greeting">
                                         <h5>Добрый день, <span style="font-weight:bold"><?= $_SESSION['name']; ?></span>!
-                                            Сегодня: <span style="font-weight:bold"><?= date('d.m.Y') ?></span>. Хорошего дня!</h5>
+                                            Сегодня: <span style="font-weight:bold">
+                                                <script>
+                                                    var today = new Date();
+                                                    var dd = String(today.getDate()).padStart(2, '0');
+                                                    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+                                                    var yyyy = today.getFullYear();
+
+                                                    today = dd + '.' + mm + '.' + yyyy + '.';
+                                                    document.write(today);
+                                                </script>
+                                            </span> Хорошего дня!</h5>
                                     </label>
                                 </div>
                             </form>
