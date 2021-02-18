@@ -23,6 +23,13 @@ th {
   border-color: #4682b4;
 }
 
+.myTab {
+  background-color: #f0f8ff;
+  list-style: none;
+  text-align: center;
+  height: 10px;
+}
+
 .myBtn:hover {
   background-color: #f8f8ff;
   border-color: #4682b4;

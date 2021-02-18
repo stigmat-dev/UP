@@ -45,16 +45,12 @@ $result = $sql->fetchAll();
 $main = $sql->fetch(PDO::FETCH_ASSOC);
 
 
-if ( isset($_POST['vkk']) ) {
-    $check = "Есть";
-} else { 
-    $check = "Нет";
-}
+
 
 if (isset($_POST['add_submit'])) {
     $sql = "INSERT INTO patients(`full_name`, `dob`, `adress`, `diag`, `work`, `date_enter`, `vkk`, `unit`) VALUES(?,?,?,?,?,?,?,?);";
     $query = $connect->prepare($sql);
-    $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $check, $unit]);
+    $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $vkk, $unit]);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
@@ -109,4 +105,9 @@ function YearTextArg($year)
     return $year . ' ' . ((($m == 1) && ($l != 11)) ? 'год' : ((($m == 2) && ($l != 12) || ($m == 3) && ($l != 13) || ($m == 4) && ($l != 14)) ? 'года' : 'лет'));
 }
 
-
+$members = $connect->query("SELECT COUNT(*) as count FROM patients")->fetchColumn();
+$members_nh1 = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Нейрохирургия 1'")->fetchColumn();
+$members_nh2 = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Нейрохирургия 2'")->fetchColumn();
+$members_zp = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Травматология ЗП'")->fetchColumn();
+$members_oda = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Травматология ОДА'")->fetchColumn();
+$members_no = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Неврология'")->fetchColumn();

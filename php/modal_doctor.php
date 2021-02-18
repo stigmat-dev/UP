@@ -35,19 +35,20 @@
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="edit_work" value="<?= $value['work'] ?>">
-                                    <option style="background: grey; color: white;" value="<?= $value['work'] ?>" selected><?= $value['work'] ?></option>
-                                    <option value="Работает">Работает</option>
-                                    <option value="Не работает">Не работает</option>
-                                    <option value="Пенсия">Пенсия</option>
-                                </select>
+                                <textarea style="height: 80px;" class="form-control" name="edit_work" value="<?= $value['work'] ?>"><?= $value['work'] ?></textarea>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" name="edit_date_enter" value="<?= $value['date_enter'] ?>">
+                                <input type="text" class="form-control" placeholder="Дата поступления" name="edit_date_enter" value="<?= $value['date_enter'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Дата выписки в формате ДД.ММ.ГГГГ" name="edit_date_exit" value="<?= $value['date_exit'] ?>">
                             </div>
 
-
+                            <div class="form-group float-left">
+                                <label>ВКК</label>&nbsp;
+                                <input type="checkbox" class="" name="edit_vkk" value="<?= $value['vkk'] ?>">
+                            </div>
 
                             <div class="form-group">
                                 <select class="form-control" name="edit_unit" value="<?= $value['unit'] ?>">
@@ -60,10 +61,6 @@
                                     <option value="Неврология">Неврология</option>
 
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <a href="#" target="blank" style="color: white;" type="submit" name="edit_submit" class="btn myBtn">Файлы</a>
                             </div>
 
                             <div class="modal-footer">
@@ -127,3 +124,28 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!---------------------------------Диагноз---------------------------------------------->
+<div class="modal fade" id="workModal<?= $value['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">Место работы</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea style="height: 100px;" id="diag" class="form-control" disabled><?= $value['work'] ?></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

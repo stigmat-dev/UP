@@ -21,73 +21,96 @@ include 'functions_user.php';
 <body>
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col mt-1">
-        <nav class="menu shadow">
-          <button type="submit" name="mail_submit" class="btn btn-primary mb-1 ml-auto myBtn addBtn" data-toggle="modal" data-target="#Modal" title="Добавить запись"><i class="far fa-address-card"></i></button>
-          <form action="" method="GET">
-            <div class="form-group ">
-              <button name="search_submit" type="submit" class="btn btn-primary noBtn">Найти</button>
 
-              <input type="search" class="form-control search" name="search" value="" placeholder="Поиск...">
 
-              <button name="load_submit" type="submit" class="btn btn-primary loadBtn myBtn" title="Обновить базу"><i class="fas fa-sync-alt"></i></button>
-              <button name="exit_submit" class="btn btn-primary expBtn myBtn" type="submit" title="Выход"><i class="fas fa-sign-out-alt"></i></button>
-              <label class="greeting">
-                <h5>Добрый день, <span style="font-weight:bold"><?= $_SESSION['name']; ?></span>!
-                  Сегодня: <span style="font-weight:bold"><?= date('d.m.Y') ?></span>. Хорошего дня!</h5>
-              </label>
-            </div>
-          </form>
-        </nav>
+    <ul class="myTab">
+      <li class="nav-item">
+        <p class="nav-link active" data-toggle="tab" href="#description">Общее количество пациентов: <span style="font-weight:bold; font-size:120%;">◄ <?= $members ?> ►</span> &nbsp; | &nbsp;
+          Нейрохирургия №1: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_nh1 ?> ►</span> &nbsp; | &nbsp;
+          Нейрохирургия №2: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_nh2 ?> ►</span> &nbsp; | &nbsp;
+          Травматология ЗП: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_zp ?> ►</span> &nbsp;| &nbsp;
+          Травматология ОДА: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_oda ?> ►</span> &nbsp;| &nbsp;
+          Неврология: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_no ?> ►</span>
+        </p>
+      </li>
+    </ul>
 
-        <table class="table shadow">
-          <thead class="thead-dark">
-            <tr>
-              <th>№</th>
-              <th>ФИО</th>
-              <th>Дата рождения</th>
-              <th>Адрес</th>
-              <th>Диагноз</th>
-              <th>Трудоустройство</th>
-              <th>Дата поступления</th>
-              <th>Дата выписки</th>
-              <th>ВКК</th>
-              <th>Отделение</th>
-              <th>Действие</th>
-            </tr>
-            <?php foreach ($result as $value) { ?>
-              <tr>
-                <td class="td-center"><?= $value['id'] ?></td>
-                <td><?= $value['full_name'] ?></td>
-                <td class="td-center"><?= $value['dob'] ?>
-                  (<?php
-                    $age = DateTime::createFromFormat('d.m.Y', $value['dob'])
-                      ->diff(new DateTime('now'))
-                      ->y;
+    <div class="tab-content p-3">
+      <div class="tab-pane fade show active">
+        <div class="row">
 
-                    print YearTextArg($age);
-                    ?>)</td>
-                <td class="td-center"><?= $value['adress'] ?></td>
-                <td class="td-center"><a href="?note=<?= $value['id'] ?>" class="myLink" <?php if (empty($value['diag'])) {
-                                                                                            echo 'style="display: none;"';
-                                                                                          } ?> id="noteLink" data-toggle="modal" data-placement="top" data-target="#diagModal<?= $value['id'] ?>">Открыть</a></td>
-                <td class="td-center"><?= $value['work'] ?></td>
-                <td class="td-center"><?= $value['date_enter'] ?></td>
-                <td class="td-center"><?= $value['date_exit'] ?></td>
-                <td class="td-center"><?= $value['vkk'] ?></td>
-                <td class="td-center"><?= $value['unit'] ?></td>
-                <td class="td-center">
-                  <a href="?edit=<?= $value['id'] ?>" title="Редактировать запись" class="btn btn-primary btn-sm myBtn" data-toggle="modal" data-placement="top" data-target="#editModal<?= $value['id'] ?>"><i class="far fa-edit"></i></a>
-                  <?php require 'modal_user.php'; ?>
-                </td>
-              </tr>
-            <?php } ?>
-          </thead>
-        </table>
+          <div class="col mt-1">
+            <nav class="menu shadow">
+              <button type="submit" name="mail_submit" class="btn btn-primary mb-1 ml-auto myBtn addBtn" data-toggle="modal" data-target="#Modal" title="Добавить запись"><i class="far fa-address-card"></i></button>
+              <form action="" method="GET">
+                <div class="form-group ">
+                  <button name="search_submit" type="submit" class="btn btn-primary noBtn">Найти</button>
+
+                  <input type="search" class="form-control search" name="search" value="" placeholder="Поиск...">
+
+                  <button name="load_submit" type="submit" class="btn btn-primary loadBtn myBtn" title="Обновить базу"><i class="fas fa-sync-alt"></i></button>
+                  <button name="exit_submit" class="btn btn-primary expBtn myBtn" type="submit" title="Выход"><i class="fas fa-sign-out-alt"></i></button>
+                  <label class="greeting">
+                    <h5>Добрый день, <span style="font-weight:bold"><?= $_SESSION['name']; ?></span>!
+                      Сегодня: <span style="font-weight:bold"><?= date('d.m.Y') ?></span>. Хорошего дня!</h5>
+                  </label>
+                </div>
+              </form>
+            </nav>
+
+            <table class="table shadow">
+              <thead class="thead-dark">
+                <tr>
+                  <th>№</th>
+                  <th>ФИО</th>
+                  <th>Дата рождения</th>
+                  <th>Адрес</th>
+                  <th>Диагноз</th>
+                  <th>Место работы</th>
+                  <th>Дата поступления</th>
+                  <th>Дата выписки</th>
+                  <th>ВКК</th>
+                  <th>Отделение</th>
+                  <th>Действие</th>
+                </tr>
+                <?php foreach ($result as $value) { ?>
+                  <tr>
+                    <td class="td-center"><?= $value['id'] ?></td>
+                    <td><?= $value['full_name'] ?></td>
+                    <td class="td-center"><?= $value['dob'] ?>
+                      (<?php
+                        $age = DateTime::createFromFormat('d.m.Y', $value['dob'])
+                          ->diff(new DateTime('now'))
+                          ->y;
+
+                        print YearTextArg($age);
+                        ?>)</td>
+                    <td class="td-center"><?= $value['adress'] ?></td>
+                    <td class="td-center"><a href="?diag=<?= $value['id'] ?>" class="myLink" <?php if (empty($value['diag'])) {
+                                                                                                echo 'style="display: none;"';
+                                                                                              } ?> id="noteLink" data-toggle="modal" data-placement="top" data-target="#diagModal<?= $value['id'] ?>">Открыть</a></td>
+                    <td class="td-center"><a href="?diag=<?= $value['id'] ?>" class="myLink" <?php if (empty($value['diag'])) {
+                                                                                                echo 'style="display: none;"';
+                                                                                              } ?> id="noteLink" data-toggle="modal" data-placement="top" data-target="#workModal<?= $value['id'] ?>">Открыть</a></td>
+                    <td class="td-center"><?= $value['date_enter'] ?></td>
+                    <td class="td-center"><?= $value['date_exit'] ?></td>
+                    <td class="td-center"><?= $value['vkk'] ?></td>
+                    <td class="td-center"><?= $value['unit'] ?></td>
+                    <td class="td-center">
+                      <a href="?edit=<?= $value['id'] ?>" title="Редактировать запись" class="btn btn-primary btn-sm myBtn" data-toggle="modal" data-placement="top" data-target="#editModal<?= $value['id'] ?>"><i class="far fa-edit"></i></a>
+                      <?php require 'modal_user.php'; ?>
+                    </td>
+                  </tr>
+                <?php } ?>
+              </thead>
+            </table>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
 
   <!-- ---------------------------------------------------------Форма Добавить запись -------------------------------------------------------------------------->
 
@@ -125,12 +148,7 @@ include 'functions_user.php';
 
 
             <div class="form-group">
-              <select class="form-control" name="work">
-                <option style="background: grey; color: white;" value="" selected>Трудоустройство</option>
-                <option value="Работает">Работает</option>
-                <option value="Не работает">Не работает</option>
-                <option value="Пенсия">Пенсия</option>
-              </select>
+              <textarea style="height: 80px;" class="form-control" name="work" placeholder="Место работы"></textarea>
             </div>
 
 
@@ -139,18 +157,19 @@ include 'functions_user.php';
               <input type="date" class="form-control" name="date_enter" value="<?php echo date('Y-m-d'); ?>">
             </div>
 
+
             <div class="form-group">
-            <label for="">ВКК</label>&nbsp;
-              <input type="checkbox" class="" name="vkk" value="">
+              <select class="form-control" name="vkk">
+                <option style="background: grey; color: white;" value="" selected>ВКК</option>
+                <option value="Есть">Есть</option>
+                <option value="Нет">Нет</option>
+              </select>
             </div>
 
 
-
-            
-
             <div class="form-group">
               <select class="form-control" name="unit">
-                <option value="" selected>Выберите отделение</option>
+                <option style="background: grey; color: white;" value="" selected>Выберите отделение</option>
                 <option value="Нейрохирургия 1">Нейрохирургия 1</option>
                 <option value="Нейрохирургия 2">Нейрохирургия 2</option>
                 <option value="Травматология ЗП">Травматология ЗП</option>

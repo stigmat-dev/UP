@@ -31,6 +31,7 @@ $edit_adress = @$_POST['edit_adress'];
 $edit_diag = @$_POST['edit_diag'];
 $edit_work = @$_POST['edit_work'];
 $edit_date_enter = @$_POST['edit_date_enter'];
+$edit_date_exit = @$_POST['edit_date_exit'];
 $edit_unit = @$_POST['edit_unit'];
 $get_id = @$_GET['id'];
 
@@ -107,3 +108,10 @@ function YearTextArg($year)
     $l = substr($year, -2, 2);
     return $year . ' ' . ((($m == 1) && ($l != 11)) ? 'год' : ((($m == 2) && ($l != 12) || ($m == 3) && ($l != 13) || ($m == 4) && ($l != 14)) ? 'года' : 'лет'));
 }
+
+$members = $connect->query("SELECT COUNT(*) as count FROM patients")->fetchColumn();
+$members_nh1 = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Нейрохирургия 1'")->fetchColumn();
+$members_nh2 = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Нейрохирургия 2'")->fetchColumn();
+$members_zp = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Травматология ЗП'")->fetchColumn();
+$members_oda = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Травматология ОДА'")->fetchColumn();
+$members_no = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Неврология'")->fetchColumn();
