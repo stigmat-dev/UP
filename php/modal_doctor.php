@@ -4,7 +4,16 @@
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content shadow">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="far fa-edit"></i>&nbsp; Карта пациента № <?= $value['id'] ?> ◄ <?= $value['full_name'] ?> ►</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="far fa-edit"></i>&nbsp; Карта пациента № <?= $value['id'] ?> ◄ <?= $value['full_name'] ?> ►
+                    <?= $value['dob'] ?>
+                    (<?php
+                        $age = DateTime::createFromFormat('d.m.Y', $value['dob'])
+                            ->diff(new DateTime('now'))
+                            ->y;
+
+                        print YearTextArg($age);
+                        ?>)
+                   </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -45,9 +54,12 @@
                                 <input type="text" class="form-control" placeholder="Дата выписки в формате ДД.ММ.ГГГГ" name="edit_date_exit" value="<?= $value['date_exit'] ?>">
                             </div>
 
-                            <div class="form-group float-left">
-                                <label>ВКК</label>&nbsp;
-                                <input type="checkbox" class="" name="edit_vkk" value="<?= $value['vkk'] ?>">
+                            <div class="form-group">
+                                <select class="form-control" name="edit_vkk" value="<?= $value['vkk'] ?>">
+                                    <option style="background: grey; color: white;" value="<?= $value['vkk'] ?>" selected><?= $value['vkk'] ?></option>
+                                    <option value="Есть">Есть</option>
+                                    <option value="Нет">Нет</option>
+                                </select>
                             </div>
 
                             <div class="form-group">

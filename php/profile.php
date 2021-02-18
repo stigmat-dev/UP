@@ -85,7 +85,7 @@ include 'functions_user.php';
 
                         print YearTextArg($age);
                         ?>)</td>
-                    <td class="td-center"><?= $value['adress'] ?></td>
+                    <td><?= $value['adress'] ?></td>
                     <td class="td-center"><a href="?diag=<?= $value['id'] ?>" class="myLink" <?php if (empty($value['diag'])) {
                                                                                                 echo 'style="display: none;"';
                                                                                               } ?> id="noteLink" data-toggle="modal" data-placement="top" data-target="#diagModal<?= $value['id'] ?>">Открыть</a></td>
@@ -95,7 +95,7 @@ include 'functions_user.php';
                     <td class="td-center"><?= $value['date_enter'] ?></td>
                     <td class="td-center"><?= $value['date_exit'] ?></td>
                     <td class="td-center"><?= $value['vkk'] ?></td>
-                    <td class="td-center"><?= $value['unit'] ?></td>
+                    <td><?= $value['unit'] ?></td>
                     <td class="td-center">
                       <a href="?edit=<?= $value['id'] ?>" title="Редактировать запись" class="btn btn-primary btn-sm myBtn" data-toggle="modal" data-placement="top" data-target="#editModal<?= $value['id'] ?>"><i class="far fa-edit"></i></a>
                       <?php require 'modal_user.php'; ?>
