@@ -17,6 +17,7 @@ $date_enter = @$_POST['date_enter'];
 $date_enter = date("d.m.Y", strtotime($date_enter));
 $date_exit = @$_POST['date_exit'];
 $date_exit = date("d.m.Y", strtotime($date_exit));
+$vkk = @$_POST['vkk'];
 $unit = @$_POST['unit'];
 
 
@@ -31,6 +32,7 @@ $edit_adress = @$_POST['edit_adress'];
 $edit_diag = @$_POST['edit_diag'];
 $edit_work = @$_POST['edit_work'];
 $edit_date_enter = @$_POST['edit_date_enter'];
+$edit_vkk = @$_POST['edit_vkk'];
 $edit_unit = @$_POST['edit_unit'];
 $get_id = @$_GET['id'];
 
@@ -43,19 +45,25 @@ $result = $sql->fetchAll();
 $main = $sql->fetch(PDO::FETCH_ASSOC);
 
 
+if ( isset($_POST['vkk']) ) {
+    $check = "Есть";
+} else { 
+    $check = "Нет";
+}
+
 if (isset($_POST['add_submit'])) {
-    $sql = "INSERT INTO patients(`full_name`, `dob`, `adress`, `diag`, `work`, `date_enter`, `unit`) VALUES(?,?,?,?,?,?,?);";
+    $sql = "INSERT INTO patients(`full_name`, `dob`, `adress`, `diag`, `work`, `date_enter`, `vkk`, `unit`) VALUES(?,?,?,?,?,?,?,?);";
     $query = $connect->prepare($sql);
-    $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $unit]);
-
-
+    $query->execute([$full_name, $dob, $adress, $diag, $work, $date_enter, $check, $unit]);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
+
+
 if (isset($_POST['edit_submit'])) {
-    $sql = "UPDATE patients SET full_name=?, dob=?, adress=?, diag=?, work=?, date_enter=?, unit=? WHERE id=?;";
+    $sql = "UPDATE patients SET full_name=?, dob=?, adress=?, diag=?, work=?, date_enter=?, vkk=?, unit=? WHERE id=?;";
     $query = $connect->prepare($sql);
-    $query->execute([$edit_full_name, $edit_dob, $edit_adress, $edit_diag, $edit_work, $edit_date_enter, $edit_unit, $get_id]);
+    $query->execute([$edit_full_name, $edit_dob, $edit_adress, $edit_diag, $edit_work, $edit_date_enter, $edit_vkk, $edit_unit, $get_id]);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
@@ -100,3 +108,5 @@ function YearTextArg($year)
     $l = substr($year, -2, 2);
     return $year . ' ' . ((($m == 1) && ($l != 11)) ? 'год' : ((($m == 2) && ($l != 12) || ($m == 3) && ($l != 13) || ($m == 4) && ($l != 14)) ? 'года' : 'лет'));
 }
+
+

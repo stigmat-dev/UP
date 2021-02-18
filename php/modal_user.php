@@ -46,6 +46,11 @@
                     </div>
 
 
+                    <div class="form-group">
+                        <label for="">ВКК</label>&nbsp;
+                        <input type="checkbox" class="" name="edit_vkk" value="<?= $value['vkk'] ?>">
+                    </div>
+
 
                     <div class="form-group">
                         <select class="form-control" name="edit_unit" value="<?= $value['unit'] ?>">

@@ -52,6 +52,7 @@ include 'functions_user.php';
               <th>Трудоустройство</th>
               <th>Дата поступления</th>
               <th>Дата выписки</th>
+              <th>ВКК</th>
               <th>Отделение</th>
               <th>Действие</th>
             </tr>
@@ -74,6 +75,7 @@ include 'functions_user.php';
                 <td class="td-center"><?= $value['work'] ?></td>
                 <td class="td-center"><?= $value['date_enter'] ?></td>
                 <td class="td-center"><?= $value['date_exit'] ?></td>
+                <td class="td-center"><?= $value['vkk'] ?></td>
                 <td class="td-center"><?= $value['unit'] ?></td>
                 <td class="td-center">
                   <a href="?edit=<?= $value['id'] ?>" title="Редактировать запись" class="btn btn-primary btn-sm myBtn" data-toggle="modal" data-placement="top" data-target="#editModal<?= $value['id'] ?>"><i class="far fa-edit"></i></a>
@@ -137,6 +139,14 @@ include 'functions_user.php';
               <input type="date" class="form-control" name="date_enter" value="<?php echo date('Y-m-d'); ?>">
             </div>
 
+            <div class="form-group">
+            <label for="">ВКК</label>&nbsp;
+              <input type="checkbox" class="" name="vkk" value="">
+            </div>
+
+
+
+            
 
             <div class="form-group">
               <select class="form-control" name="unit">
