@@ -25,12 +25,12 @@ include 'functions_user.php';
 
     <ul class="myTab">
       <li class="nav-item">
-        <p class="nav-link active" data-toggle="tab" href="#description">Общее количество пациентов: <span style="font-weight:bold; font-size:120%;">◄ <?= $members ?> ►</span> &nbsp; | &nbsp;
-          Нейрохирургия №1: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_nh1 ?> ►</span> &nbsp; | &nbsp;
-          Нейрохирургия №2: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_nh2 ?> ►</span> &nbsp; | &nbsp;
-          Травматология ЗП: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_zp ?> ►</span> &nbsp;| &nbsp;
-          Травматология ОДА: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_oda ?> ►</span> &nbsp;| &nbsp;
-          Неврология: <span style="font-weight:bold; font-size:120%;">◄ <?= $members_no ?> ►</span>
+        <p class="nav-link active" data-toggle="tab" href="#description">Общее количество пациентов: <span style="font-weight:bold; font-size:120%;">‹ <?= $members ?> ›</span> &nbsp; | &nbsp;
+          Нейрохирургия №1: <span style="font-weight:bold; font-size:120%;">‹ <?= $members_nh1 ?> ›</span> &nbsp; | &nbsp;
+          Нейрохирургия №2: <span style="font-weight:bold; font-size:120%;">‹ <?= $members_nh2 ?> ›</span> &nbsp; | &nbsp;
+          Травматология ЗП: <span style="font-weight:bold; font-size:120%;">‹ <?= $members_zp ?> ›</span> &nbsp;| &nbsp;
+          Травматология ОДА: <span style="font-weight:bold; font-size:120%;">‹ <?= $members_oda ?> ›</span> &nbsp;| &nbsp;
+          Неврология: <span style="font-weight:bold; font-size:120%;">‹ <?= $members_no ?> ›</span>
         </p>
       </li>
     </ul>
