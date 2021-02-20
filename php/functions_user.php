@@ -105,6 +105,13 @@ function YearTextArg($year)
     return $year . ' ' . ((($m == 1) && ($l != 11)) ? 'год' : ((($m == 2) && ($l != 12) || ($m == 3) && ($l != 13) || ($m == 4) && ($l != 14)) ? 'года' : 'лет'));
 }
 
+function CountTextArg($man)
+{
+    $m = substr($man, -1, 1);
+    $l = substr($man, -2, 2);
+    return $man . ' ' . ((($m == 1) && ($l != 11)) ? 'человек' : ((($m == 2) && ($l != 12) || ($m == 3) && ($l != 13) || ($m == 4) && ($l != 14)) ? 'человека' : 'человек'));
+}
+
 $members = $connect->query("SELECT COUNT(*) as count FROM patients")->fetchColumn();
 $members_nh1 = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Нейрохирургия 1'")->fetchColumn();
 $members_nh2 = $connect->query("SELECT COUNT(*) as count FROM patients WHERE unit='Нейрохирургия 2'")->fetchColumn();
